@@ -32,13 +32,6 @@
 
 import asyncio
 
-recipients = [
-    ("Alice", 2),
-    ("Bob", 3),
-    ("Charlie", 1),
-    ("Diana", 4)
-]
-
 
 async def send_email(recipient, delay):
     print(f'Начинаю отправку письма для {recipient}...')
@@ -47,14 +40,23 @@ async def send_email(recipient, delay):
 
 
 async def main():
-    tasks = []
+    recipients = [
+        ("Alice", 2),
+        ("Bob", 3),
+        ("Charlie", 1),
+        ("Diana", 4)
+    ]
+    if not recipients:
+        print('Ваш список пользователей пуст пуст!')
+    else:
+        tasks = []
 
-    for recipient, delay in recipients:
-        task = asyncio.create_task(send_email(recipient, delay))
-        tasks.append(task)
+        for recipient, delay in recipients:
+            task = asyncio.create_task(send_email(recipient, delay))
+            tasks.append(task)
 
-    for task in tasks:
-        await task
+        for task in tasks:
+            await task
 
 
 asyncio.run(main())
